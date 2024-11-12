@@ -1,4 +1,6 @@
 ---
+description: "A plan to remove the Apache server from targets"
+
 parameters:
   targets:
     type: TargetSpec
@@ -6,16 +8,16 @@ parameters:
 
 steps:
   - task: service
-    target: $targets
+    targets: $targets
     description: "Shut down apache service"
     parameters:
       name: httpd
       action: stop
   - command: "cp /etc/httpd/logs/access_log /tmp/apache_access"
-    target: $targets
+    targets: $targets
     description: "Copy Apache access log"
   - task: package
-    target: $targets
+    targets: $targets
     description: "Remove Apache"
     parameters:
       action: uninstall
